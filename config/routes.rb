@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
-  get 'sessions/create'
-  get 'sessions/destroy'
+  root 'static_pages#home'
   get '/home', to: 'static_pages#home'
   get "/signup", to: "users#new"
   post "/signup", to: "users#create"
@@ -10,5 +8,9 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
+  resources :password_resets, only: %i(new create edit update) 
+  resources :account_activations, only: :edit
+  resources :products, only: %i(index show)
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
