@@ -6,8 +6,23 @@
     <%= link_to "Food & Drink", '#', id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "home", '#' ,id: "link_header" %></li>
+        <li><%= link_to "home", root_path ,id: "link_header" %></li>
         <li><%= link_to "help", "#", id: "link_header" %></li>
+        <% if logged_in? %>
+          <li class="dropdown">
+            <%= link_to "#", class: "dropdown-toggle", "data-toggle": "dropdown" do %>
+              <%= t "account" %>
+              <b class="caret"></b>
+            <% end %>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Profile", current_user,id: "link_header" %></li>
+              <li class="divider"></li>
+              <li> <%= link_to "Log out", logout_path, method: :delete,id: "link_header" %></li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to "Log in", login_path,id: "link_header" %></li>
+        <% end %>
       </ul>
     </nav>
   </div>
